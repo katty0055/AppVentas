@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de bienvenida -->
+    <div id="pantalla-bienvenida">
+        <h1>Bienvenido a la Empresa</h1>
+        <button id="btn-comprar">Compra</button>
+        <button id="btn-vender">Venta</button>
+    </div>
+
+    <!-- Pantalla de selección de factura -->
+    <div id="pantalla-facturas" class="hidden">
+        <h2>Seleccione una Factura</h2>
+        <select id="facturas-lista"></select>
+        <button id="btn-continuar">Continuar</button>
+    </div>
+
+    <!-- Pantalla de cuotas -->
+    <div id="pantalla-cuotas" class="hidden">
+        <h2>Ingrese detalles de pago</h2>
+        <label>Plazo: <input type="text" id="plazo"></label><br>
+        <label>Cantidad de Cuotas: <input type="number" id="cantidad_cuotas"></label><br>
+        <label><input type="checkbox" id="irregular"> Cuotas Irregulares</label><br>
+        <div id="detalle-cuotas" class="hidden"></div>
+        <button id="btn-guardar">Guardar</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+           // Acción del botón "Compra" para abrir una nueva ventana con la tabla de compras
+            $("#btn-comprar").click(function() {
+                $.get("http://localhost:3000/compras", function(data) {
+                    let nuevaVentana = window.open("", "_blank");
+                    
+                    let contenidoHTML = `
+                        <html>
+                        <head>
+                            <title>Compras</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; }
+                                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                                th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                                th { background-color: #f2f2f2; }
+                            </style>
+                        </head>
+                        <body>
+                            <h2>Lista de Compras</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Documento</th>
+                                        <th>Moneda</th>
+                                        <th>Proveedor</th>
+                                        <th>Fecha</th>
+                                        <th>Monto Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+
+                    data.forEach(compra => {
+                        contenidoHTML += `
+                            <tr>
+                                <td>${compra.id_compras}</td>
+                                <td>${compra.descripcion_documento}</td>
+                                <td>${compra.descripcion}</td>
+                                <td>${compra.ruc_ci}</td>
+                                <td>${compra.fecha}</td>
+                                <td>${compra.monto_total}</td>
+                            </tr>
+                        `;
+                    });
+
+                    contenidoHTML += `
+                                </tbody>
+                            </table>
+                        </body>
+                        </html>
+                    `;
+
+                    // Escribir contenido en la nueva ventana
+                    nuevaVentana.document.write(contenidoHTML);
+                    nuevaVentana.document.close();
+                }).fail(function() {
+                    alert("Error al obtener las compras.");
+                });
+            });
+
+// Acción del botón "Venta" para abrir una nueva ventana con la tabla de ventas
+$("#btn-vender").click(function() {
+                $.get("http://localhost:3000/ventas", function(data) {
+                    let nuevaVentana = window.open("", "_blank");
+                    
+                    let contenidoHTML = `
+                        <html>
+                        <head>
+                            <title>Ventas</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; }
+                                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                                th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                                th { background-color: #f2f2f2; }
+                            </style>
+                        </head>
+                        <body>
+                            <h2>Lista de Ventas</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Documento</th>
+                                        <th>Moneda</th>
+                                        <th>Cliente</th>
+                                        <th>Fecha</th>
+                                        <th>Monto Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+
+                    data.forEach(venta => {
+                        contenidoHTML += `
+                            <tr>
+                                <td>${venta.id_venta}</td>
+                                <td>${venta.descripcion_documento}</td>
+                                <td>${venta.descripcion}</td>
+                                <td>${venta.ruc_ci}</td>
+                                <td>${venta.fecha}</td>
+                                <td>${venta.monto_total}</td>
+                            </tr>
+                        `;
+                    });
+
+                    contenidoHTML += `
+                                </tbody>
+                            </table>
+                        </body>
+                        </html>
+                    `;
+
+                    // Escribir contenido en la nueva ventana
+                    nuevaVentana.document.write(contenidoHTML);
+                    nuevaVentana.document.close();
+                }).fail(function() {
+                    alert("Error al obtener las ventas.");
+                });
+            });
+
+
+            // Cargar facturas desde el servidor
+            function cargarFacturas() {
+                $.get("http://localhost:3000/facturas", function(data) {
+                    $("#facturas-lista").empty();
+                    data.forEach(factura => {
+                        $("#facturas-lista").append(`<option value="${factura.id_compras}">${factura.factura_numero}</option>`);
+                    });
+                });
+            }
+
+            // Pasar a la pantalla de cuotas
+            $("#btn-continuar").click(function() {
+                $("#pantalla-facturas").hide();
+                $("#pantalla-cuotas").show();
+            });
+
+            // Manejar la casilla de cuotas irregulares
+            $("#irregular").change(function() {
+                if ($(this).is(":checked")) {
+                    let cantidad = $("#cantidad_cuotas").val();
+                    $("#detalle-cuotas").empty().show();
+                    for (let i = 0; i < cantidad; i++) {
+                        $("#detalle-cuotas").append(`<label>Día ${i + 1}: <input type="number" class="dias-cuota"></label><br>`);
+                    }
+                } else {
+                    $("#detalle-cuotas").hide();
+                }
+            });
+
+            // Guardar cuotas en la base de datos
+            $("#btn-guardar").click(function() {
+                let plazo = $("#plazo").val();
+                let cantidad_cuotas = $("#cantidad_cuotas").val();
+                let irregular = $("#irregular").is(":checked");
+                let dias = [];
+
+                if (irregular) {
+                    $(".dias-cuota").each(function() {
+                        dias.push($(this).val());
+                    });
+                }
+
+                $.post("http://localhost:3000/guardar-cuotas", {
+                    plazo: plazo,
+                    cantidad_cuotas: cantidad_cuotas,
+                    irregular: irregular,
+                    dias: dias
+                }, function(response) {
+                    alert(response.message);
+                    location.reload();
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
