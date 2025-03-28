@@ -1,0 +1,507 @@
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+734  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+814  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+815  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+862  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+22613 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
+39350 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@7361b444]
+64574 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property autoIncrementSequenceName changed while monitoring pkTable
+64574 [AWT-EventQueue-0] WARN  ca.sqlpower.sqlobject.ForeignKeyColumnUpdaterPoolingSPListener  - Warning: unknown column property autoIncrementSequenceName changed while monitoring pkTable
+66954 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE SEQUENCE public.categoria_id_categoria_seq_1
+66957 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Categoria (
+                id_categoria BIGINT NOT NULL DEFAULT nextval('public.categoria_id_categoria_seq_1'),
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT categoria_pk PRIMARY KEY (id_categoria)
+)
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.categoria_id_categoria_seq_1 OWNED BY public.Categoria.id_categoria
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.deposito_id_deposito_seq_2
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Deposito (
+                id_deposito BIGINT NOT NULL DEFAULT nextval('public.deposito_id_deposito_seq_2'),
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT deposito_pk PRIMARY KEY (id_deposito)
+)
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.deposito_id_deposito_seq_2 OWNED BY public.Deposito.id_deposito
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.cuotascompras_id_cuota_seq_1
+66958 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.CuotasCompras (
+                id_cuota BIGINT NOT NULL DEFAULT nextval('public.cuotascompras_id_cuota_seq_1'),
+                plazo VARCHAR NOT NULL,
+                tipo_cuota INTEGER NOT NULL,
+                cantidad_cuotas INTEGER NOT NULL,
+                irregular BOOLEAN DEFAULT False NOT NULL,
+                CONSTRAINT cuotascompras_pk PRIMARY KEY (id_cuota)
+)
+66959 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.cuotascompras_id_cuota_seq_1 OWNED BY public.CuotasCompras.id_cuota
+66959 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.proveedores_id_proveedor_seq_1
+66959 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Proveedores (
+                id_proveedor BIGINT NOT NULL DEFAULT nextval('public.proveedores_id_proveedor_seq_1'),
+                nombre VARCHAR NOT NULL,
+                ruc_ci VARCHAR NOT NULL,
+                direccion VARCHAR NOT NULL,
+                telefono VARCHAR NOT NULL,
+                timbrado_numero VARCHAR NOT NULL,
+                fecha_inicio_vigencia DATE NOT NULL,
+                fecha_fin_vigencia DATE NOT NULL,
+                CONSTRAINT proveedores_pk PRIMARY KEY (id_proveedor)
+)
+66959 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.proveedores_id_proveedor_seq_1 OWNED BY public.Proveedores.id_proveedor
+66959 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.productos_id_productos_seq
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Productos (
+                id_productos BIGINT NOT NULL DEFAULT nextval('public.productos_id_productos_seq'),
+                descripcion VARCHAR NOT NULL,
+                id_categoria BIGINT NOT NULL,
+                CONSTRAINT productos_pk PRIMARY KEY (id_productos)
+)
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.productos_id_productos_seq OWNED BY public.Productos.id_productos
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.productosdetalle_id_producto_detalle_seq_1
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.ProductosDetalle (
+                id_producto_detalle BIGINT NOT NULL DEFAULT nextval('public.productosdetalle_id_producto_detalle_seq_1'),
+                id_productos BIGINT NOT NULL,
+                codigo_barra VARCHAR NOT NULL,
+                tamanho VARCHAR NOT NULL,
+                descripcion VARCHAR NOT NULL,
+                iva NUMERIC(2) NOT NULL,
+                costo NUMERIC NOT NULL,
+                stock_actual INTEGER NOT NULL,
+                ultima_fecha_compra DATE NOT NULL,
+                precio NUMERIC NOT NULL,
+                CONSTRAINT productosdetalle_pk PRIMARY KEY (id_producto_detalle)
+)
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.productosdetalle_id_producto_detalle_seq_1 OWNED BY public.ProductosDetalle.id_producto_detalle
+66960 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.comprasdetalle_id_compras_detalle_seq_1
+66961 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.ComprasDetalle (
+                id_compras_detalle BIGINT NOT NULL DEFAULT nextval('public.comprasdetalle_id_compras_detalle_seq_1'),
+                cantidad INTEGER NOT NULL,
+                id_producto_detalle BIGINT NOT NULL,
+                precio_unitario NUMERIC NOT NULL,
+                CONSTRAINT comprasdetalle_pk PRIMARY KEY (id_compras_detalle)
+)
+66961 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.comprasdetalle_id_compras_detalle_seq_1 OWNED BY public.ComprasDetalle.id_compras_detalle
+66961 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.cuotasventas_id_cuota_seq_1
+66961 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.CuotasVentas (
+                id_cuota BIGINT NOT NULL DEFAULT nextval('public.cuotasventas_id_cuota_seq_1'),
+                plazo VARCHAR NOT NULL,
+                tipo_cuota INTEGER NOT NULL,
+                cantidad_cuotas INTEGER NOT NULL,
+                irregular BOOLEAN DEFAULT False NOT NULL,
+                CONSTRAINT cuotasventas_pk PRIMARY KEY (id_cuota)
+)
+66961 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.cuotasventas_id_cuota_seq_1 OWNED BY public.CuotasVentas.id_cuota
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.talonarios_id_talonario_seq_1
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Talonarios (
+                id_talonario BIGINT NOT NULL DEFAULT nextval('public.talonarios_id_talonario_seq_1'),
+                timbrado VARCHAR NOT NULL,
+                fecha_inicio_vigencia DATE NOT NULL,
+                fecha_fin_vigencia DATE NOT NULL,
+                CONSTRAINT talonarios_pk PRIMARY KEY (id_talonario)
+)
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.talonarios_id_talonario_seq_1 OWNED BY public.Talonarios.id_talonario
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.clientes_id_cliente_seq_1
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Clientes (
+                id_cliente BIGINT NOT NULL DEFAULT nextval('public.clientes_id_cliente_seq_1'),
+                nombre VARCHAR NOT NULL,
+                direccion VARCHAR NOT NULL,
+                ruc_ci VARCHAR NOT NULL,
+                telefono VARCHAR NOT NULL,
+                CONSTRAINT clientes_pk PRIMARY KEY (id_cliente)
+)
+66962 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.clientes_id_cliente_seq_1 OWNED BY public.Clientes.id_cliente
+66963 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.ventasdetalle_id_ventas_detalle_seq_1
+66963 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.VentasDetalle (
+                id_ventas_detalle BIGINT NOT NULL DEFAULT nextval('public.ventasdetalle_id_ventas_detalle_seq_1'),
+                id_producto_detalle BIGINT NOT NULL,
+                cantidad INTEGER NOT NULL,
+                precio_unitario NUMERIC NOT NULL,
+                CONSTRAINT ventasdetalle_pk PRIMARY KEY (id_ventas_detalle)
+)
+66963 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.ventasdetalle_id_ventas_detalle_seq_1 OWNED BY public.VentasDetalle.id_ventas_detalle
+66963 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.monedas_id_moneda_seq_1
+66963 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Monedas (
+                id_moneda BIGINT NOT NULL DEFAULT nextval('public.monedas_id_moneda_seq_1'),
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT monedas_pk PRIMARY KEY (id_moneda)
+)
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.monedas_id_moneda_seq_1 OWNED BY public.Monedas.id_moneda
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.tiposdocumentos_id_tipos_documentos_seq_1
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.TiposDocumentos (
+                id_tipos_documentos BIGINT NOT NULL DEFAULT nextval('public.tiposdocumentos_id_tipos_documentos_seq_1'),
+                descripcion_documento VARCHAR NOT NULL,
+                CONSTRAINT tiposdocumentos_pk PRIMARY KEY (id_tipos_documentos)
+)
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.tiposdocumentos_id_tipos_documentos_seq_1 OWNED BY public.TiposDocumentos.id_tipos_documentos
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.empresa_id_empresa_seq_1
+66964 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Empresa (
+                id_empresa BIGINT NOT NULL DEFAULT nextval('public.empresa_id_empresa_seq_1'),
+                nombre VARCHAR NOT NULL,
+                ruc VARCHAR NOT NULL,
+                CONSTRAINT empresa_pk PRIMARY KEY (id_empresa)
+)
+66965 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.empresa_id_empresa_seq_1 OWNED BY public.Empresa.id_empresa
+66965 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.compras_id_compras_seq
+66965 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Compras (
+                id_compras BIGINT NOT NULL DEFAULT nextval('public.compras_id_compras_seq'),
+                id_tipos_documentos BIGINT NOT NULL,
+                id_moneda BIGINT NOT NULL,
+                id_compras_detalle BIGINT NOT NULL,
+                id_empresa BIGINT NOT NULL,
+                fecha_proceso TIMESTAMP NOT NULL,
+                id_proveedor BIGINT NOT NULL,
+                id_cuota BIGINT NOT NULL,
+                fecha DATE NOT NULL,
+                id_deposito BIGINT NOT NULL,
+                documento_numero VARCHAR NOT NULL,
+                monto_total NUMERIC NOT NULL,
+                CONSTRAINT compras_pk PRIMARY KEY (id_compras)
+)
+66965 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.compras_id_compras_seq OWNED BY public.Compras.id_compras
+66965 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.cuentaspagar_id_cuentas_pagar_seq
+66966 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.CuentasPagar (
+                id_cuentas_pagar BIGINT NOT NULL DEFAULT nextval('public.cuentaspagar_id_cuentas_pagar_seq'),
+                vencimiento DATE,
+                importe NUMERIC,
+                pagado NUMERIC,
+                id_cuota BIGINT NOT NULL,
+                id_compras BIGINT NOT NULL,
+                CONSTRAINT cuentaspagar_pk PRIMARY KEY (id_cuentas_pagar)
+)
+66966 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.cuentaspagar_id_cuentas_pagar_seq OWNED BY public.CuentasPagar.id_cuentas_pagar
+66966 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.ventas_id_venta_seq
+66966 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.Ventas (
+                id_venta BIGINT NOT NULL DEFAULT nextval('public.ventas_id_venta_seq'),
+                id_tipos_documentos BIGINT NOT NULL,
+                id_moneda BIGINT NOT NULL,
+                id_ventas_detalle BIGINT NOT NULL,
+                id_empresa BIGINT NOT NULL,
+                id_talonario BIGINT NOT NULL,
+                id_cuota BIGINT NOT NULL,
+                fecha DATE NOT NULL,
+                fecha_proceso TIMESTAMP NOT NULL,
+                id_deposito BIGINT NOT NULL,
+                documento_numero VARCHAR NOT NULL,
+                monto_total NUMERIC NOT NULL,
+                id_cliente BIGINT NOT NULL,
+                CONSTRAINT ventas_pk PRIMARY KEY (id_venta)
+)
+66966 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.ventas_id_venta_seq OWNED BY public.Ventas.id_venta
+66967 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE public.cuentascobrar_id_cuentas_cobrar_seq
+66967 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE public.CuentasCobrar (
+                id_cuentas_cobrar BIGINT NOT NULL DEFAULT nextval('public.cuentascobrar_id_cuentas_cobrar_seq'),
+                id_venta BIGINT NOT NULL,
+                id_cuota BIGINT NOT NULL,
+                vencimiento DATE,
+                importe NUMERIC,
+                cobrado NUMERIC,
+                CONSTRAINT cuentascobrar_pk PRIMARY KEY (id_cuentas_cobrar)
+)
+66967 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE public.cuentascobrar_id_cuentas_cobrar_seq OWNED BY public.CuentasCobrar.id_cuentas_cobrar
+66967 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Productos ADD CONSTRAINT categoria_productos_fk
+FOREIGN KEY (id_categoria)
+REFERENCES public.Categoria (id_categoria)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66968 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT deposito_compras_fk
+FOREIGN KEY (id_deposito)
+REFERENCES public.Deposito (id_deposito)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66969 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT deposito_ventas_fk
+FOREIGN KEY (id_deposito)
+REFERENCES public.Deposito (id_deposito)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66969 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT cuotascompras_compras_fk
+FOREIGN KEY (id_cuota)
+REFERENCES public.CuotasCompras (id_cuota)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66969 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.CuentasPagar ADD CONSTRAINT cuotascompras_cuentaspagar_fk
+FOREIGN KEY (id_cuota)
+REFERENCES public.CuotasCompras (id_cuota)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66970 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT proveedores_compras_fk
+FOREIGN KEY (id_proveedor)
+REFERENCES public.Proveedores (id_proveedor)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66970 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.ProductosDetalle ADD CONSTRAINT productos_productosdetalle_fk
+FOREIGN KEY (id_productos)
+REFERENCES public.Productos (id_productos)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66971 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.VentasDetalle ADD CONSTRAINT productosdetalle_ventasdetalle_fk
+FOREIGN KEY (id_producto_detalle)
+REFERENCES public.ProductosDetalle (id_producto_detalle)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66972 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.ComprasDetalle ADD CONSTRAINT productosdetalle_comprasdetalle_fk
+FOREIGN KEY (id_producto_detalle)
+REFERENCES public.ProductosDetalle (id_producto_detalle)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66972 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT comprasdetalle_compras_fk
+FOREIGN KEY (id_compras_detalle)
+REFERENCES public.ComprasDetalle (id_compras_detalle)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66972 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.CuentasCobrar ADD CONSTRAINT cuotas_cuentascobrar_fk
+FOREIGN KEY (id_cuota)
+REFERENCES public.CuotasVentas (id_cuota)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66973 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT cuotasventas_ventas_fk
+FOREIGN KEY (id_cuota)
+REFERENCES public.CuotasVentas (id_cuota)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66973 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT talonarios_ventas_fk
+FOREIGN KEY (id_talonario)
+REFERENCES public.Talonarios (id_talonario)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66973 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT clientes_ventas_fk
+FOREIGN KEY (id_cliente)
+REFERENCES public.Clientes (id_cliente)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66973 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT ventasdetalle_ventas_fk
+FOREIGN KEY (id_ventas_detalle)
+REFERENCES public.VentasDetalle (id_ventas_detalle)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66974 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT monedas_ventas_fk
+FOREIGN KEY (id_moneda)
+REFERENCES public.Monedas (id_moneda)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66974 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT monedas_compras_fk
+FOREIGN KEY (id_moneda)
+REFERENCES public.Monedas (id_moneda)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66974 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT tiposdocumentos_ventas_fk
+FOREIGN KEY (id_tipos_documentos)
+REFERENCES public.TiposDocumentos (id_tipos_documentos)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66974 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT tiposdocumentos_compras_fk
+FOREIGN KEY (id_tipos_documentos)
+REFERENCES public.TiposDocumentos (id_tipos_documentos)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66975 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Ventas ADD CONSTRAINT empresa_ventas_fk
+FOREIGN KEY (id_empresa)
+REFERENCES public.Empresa (id_empresa)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66975 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.Compras ADD CONSTRAINT empresa_compras_fk
+FOREIGN KEY (id_empresa)
+REFERENCES public.Empresa (id_empresa)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66976 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.CuentasPagar ADD CONSTRAINT compras_cuentaspagar_fk
+FOREIGN KEY (id_compras)
+REFERENCES public.Compras (id_compras)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66976 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE public.CuentasCobrar ADD CONSTRAINT ventas_cuentascobrar_fk
+FOREIGN KEY (id_venta)
+REFERENCES public.Ventas (id_venta)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+66980 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :77
+71011 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - SQL_FILE_FILTER:SQL Script Files:[sql, ddl]
+89223 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - SQL_FILE_FILTER:SQL Script Files:[sql, ddl]
